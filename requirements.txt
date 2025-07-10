@@ -6,4 +6,6 @@ tqdm
 sentence-transformers
 faiss-cpu
 scikit-learn
-jupyter 
+gradio
+transformers
+pickle5 

@@ -16,6 +16,15 @@ EMBEDDING_MODEL = 'sentence-transformers/all-MiniLM-L6-v2'
 os.makedirs(VECTOR_STORE_DIR, exist_ok=True)
 
 def chunk_text(text, chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP):
+    """
+    Split text into overlapping chunks for better embedding and retrieval.
+    Args:
+        text (str): The input text to chunk.
+        chunk_size (int): Number of words per chunk.
+        chunk_overlap (int): Number of overlapping words between chunks.
+    Returns:
+        List[str]: List of text chunks.
+    """
     words = text.split()
     chunks = []
     for i in range(0, len(words), chunk_size - chunk_overlap):
@@ -33,6 +42,7 @@ print('Chunking narratives...')
 chunks = []
 metadatas = []
 for idx, row in tqdm(df.iterrows(), total=len(df)):
+    # Chunk each complaint narrative
     text_chunks = chunk_text(row['Cleaned narrative'])
     for chunk in text_chunks:
         chunks.append(chunk)
